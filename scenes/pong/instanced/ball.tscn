@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://gdscript/traits/velocity/velocity.gd" type="Script" id=1]
+[ext_resource path="res://gdscript/traits/ball/tag_ball.gd" type="Script" id=2]
+[ext_resource path="res://gdscript/traits/interpolator/interpolator_component.gd" type="Script" id=3]
+[ext_resource path="res://gdscript/traits/interpolant/interpolant_component.gd" type="Script" id=4]
+
+
+
+
+
+
+
+
+[sub_resource type="SphereMesh" id=1]
+radius = 10.0
+height = 20.0
+
+[sub_resource type="CircleShape2D" id=2]
+
+[node name="Ball" type="Node2D"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="TagBall" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="Velocity" type="Node" parent="."]
+script = ExtResource( 1 )
+velocity = Vector2( -4, 0 )
+
+[node name="Interpolator" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance2D" parent="."]
+mesh = SubResource( 1 )
+
+[node name="Interpolant" type="Node" parent="MeshInstance"]
+script = ExtResource( 4 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )

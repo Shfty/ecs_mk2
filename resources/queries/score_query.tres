@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://addons/traitor/gdscript/trait_query.gd" type="Script" id=1]
+[ext_resource path="res://gdscript/traits/score/score.gd" type="Script" id=2]
+
+[resource]
+resource_name = "Score Query"
+script = ExtResource( 1 )
+traits = [ ExtResource( 2 ) ]
