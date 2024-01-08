@@ -1,28 +1,30 @@
-"""
-Abstract base class for interfaces
-"""
+""" A wrapper type that acts as a common interface to some functionality of its underlying object """
 
 class_name Trait
-extends Resource
 tool
 
-static func name() -> String:
-	# name must be implemented for traits to work correctly
-	breakpoint
+var node_ref: WeakRef = null
+
+func _name() -> String:
 	return "Trait"
 
-static func group_name(trait) -> String:
+func _group_name() -> String:
 	var re = RegEx.new()
 	re.compile("(?<!^)(?=[A-Z])")
-	var group_name = re.sub(trait.name(), '_', true).to_lower()
-	return group_name
+	return re.sub(_name(), '_', true).to_lower()
 
-static func is_implementor(node: Node) -> bool:
+func _is_implementor(node: Node) -> bool:
 	return false
 
-static func debug_string(node: Node) -> String:
-	return "[Trait:%s]" % [node.get_instance_id()]
+func _to_string() -> String:
+	return "[%s:%s]" % [_name(), get_instance_id()]
 
-func _init() -> void:
-	if get_name().empty():
-		set_name(name())
+func get_node() -> Node:
+	return node_ref.get_ref()
+
+static func lift(node: Node, trait: Script) -> Trait:
+	var to = trait.new()
+	if to._is_implementor(node):
+		to.node_ref = weakref(node)
+		return to
+	return null
